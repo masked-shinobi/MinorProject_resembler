@@ -1,0 +1,1030 @@
+{
+  "per_query": [
+    {
+      "query": "What is the main objective of this research paper?",
+      "ground_truth": "The paper provides an overview of how artificial intelligence, particularly natural language processing (NLP), can be used to detect suicide risk and support mental health care by analyzing textual signals from digital communication platforms.",
+      "answer": "**Main Objective of the Research Paper**\n\nThe main objective of this research paper is to explore the potential of Artificial Intelligence (AI) and Natural Language Processing (NLP) in identifying early signs of suicidal ideation and emotional distress through online text analysis. This objective is driven by the pressing global public health issue of suicide, which claims hundreds of thousands of lives each year.\n\n**Background and Context**\n\nThe paper highlights the limitations of traditional approaches to identifying suicidal ideation, such as clinical interviews and psychological assessments, and the growing need for digital solutions. With the increasing use of digital communication platforms, individuals are more likely to express emotional distress through online text, creating a new opportunity for AI-powered analysis (Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction).\n\n**Methodology and Approach**\n\nThe paper focuses on the application of NLP in mental health analysis, which enables computers to understand and analyze human language. NLP can identify patterns in written text that indicate emotional distress, depression, or suicidal thoughts, providing a potential solution to the limitations of traditional approaches (Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis).\n\n**Ethical Considerations**\n\nThe paper also emphasizes the importance of key ethical principles, including transparency in AI decision-making and protection of user privacy, which are essential for the responsible development and deployment of AI-powered mental health interventions (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:).\n\n**Conclusion**\n\nIn summary, the main objective of this research paper is to explore the potential of AI and NLP in identifying early signs of suicidal ideation and emotional distress through online text analysis, with a focus on the application of NLP in mental health analysis and the importance of ethical considerations.\n\n**Confidence Assessment**\n\nI am confident in my answer, as the research paper provides a clear and well-structured introduction, methodology, and approach to the topic. The paper also highlights the importance of ethical considerations, which is a critical aspect of AI-powered mental health interventions. However, I would like to note that the paper's specific objectives and methodology may require further clarification and detail to fully understand the research's scope and limitations.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.333,
+            "relevant_in_top_k": 1,
+            "k": 3,
+            "explanation": "1/3 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 0.5,
+            "relevant_found": 1,
+            "total_relevant": 2,
+            "explanation": "1/2 relevant items found in top-3."
+          },
+          "f1_at_k": {
+            "score": 0.4,
+            "precision": 0.333,
+            "recall": 0.5,
+            "explanation": "F1 = 0.400 (P=0.333, R=0.500)"
+          },
+          "mrr": {
+            "score": 0.333,
+            "first_relevant_rank": 3,
+            "explanation": "First relevant result at rank 3. MRR = 1/3 = 0.333"
+          },
+          "map": {
+            "score": 0.333,
+            "relevant_positions": 1,
+            "explanation": "Average Precision across 1 relevant positions = 0.333"
+          },
+          "ndcg_at_k": {
+            "score": 0.5,
+            "dcg": 0.5,
+            "idcg": 1.0,
+            "explanation": "NDCG@3 = 0.500 (DCG=0.500, IDCG=1.000)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-3."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.871,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.871"
+          },
+          "bleu_score": {
+            "score": 0.005,
+            "bleu_1": 0.049,
+            "bleu_2": 0.03,
+            "bleu_4": 0.005,
+            "explanation": "BLEU-4=0.005 (BLEU-1=0.049, BLEU-2=0.030)"
+          },
+          "rouge_l_score": {
+            "score": 0.069,
+            "precision": 0.038,
+            "recall": 0.412,
+            "lcs_length": 14,
+            "explanation": "ROUGE-L F1=0.069 (P=0.038, R=0.412, LCS=14 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.9,
+            "explanation": "The answer is largely faithful to the provided context, accurately summarizing the main objective, background, methodology, and ethical considerations of the research paper. However, the conclusion and confidence assessment contain some minor inferences not directly supported by the context, which prevents a perfect score."
+          },
+          "answer_completeness": {
+            "score": 0.8,
+            "explanation": "The generated answer covers the main objective of the research paper, the background and context, methodology and approach, and ethical considerations. However, it lacks a clear and concise summary of the paper's specific objectives and limitations, which prevents it from achieving a perfect score of 1.0."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 1.595,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.05,
+              "summarization": 0,
+              "explanation": 1.545
+            },
+            "explanation": "Total pipeline time: 1.595s"
+          }
+        },
+        "overall_score": 0.504
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.05,
+        "summarization": 0,
+        "explanation": 1.545
+      }
+    },
+    {
+      "query": "What NLP tasks are used in mental health detection?",
+      "ground_truth": "Key NLP tasks used in mental health detection include sentiment analysis, emotion classification, topic modeling, text classification, and named entity recognition.",
+      "answer": "**NLP Tasks Used in Mental Health Detection**\n\nMental health detection involves the use of various Natural Language Processing (NLP) tasks to analyze human language and identify patterns that indicate emotional distress, depression, or suicidal thoughts. The following NLP tasks are commonly used in mental health detection:\n\n1. **Sentiment Analysis**: This task involves analyzing the emotional tone of text to determine the sentiment or emotional state of the author. [Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis]\n2. **Emotion Classification**: This task involves classifying text into different emotional categories, such as happiness, sadness, or anger. [Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis]\n3. **Topic Modeling**: This task involves identifying underlying topics or themes in a large corpus of text. [Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis]\n4. **Text Classification**: This task involves classifying text into different categories, such as spam vs. non-spam emails or positive vs. negative reviews. [Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis]\n5. **Named Entity Recognition**: This task involves identifying and categorizing named entities in text, such as people, places, and organizations. [Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis]\n\nThese NLP tasks can be used to analyze various types of text data, including social media posts, chat conversations, and support forum messages, to identify warning signs of suicidal ideation and other mental health concerns. [Source: Artificial Intelligence for Mental Health and Suicide Risk — Detection Abstract]\n\nThe use of NLP in mental health detection has several benefits, including:\n\n* Early detection of suicidal ideation and other mental health concerns\n* Providing decision support to mental health professionals\n* Enabling crisis intervention through automated systems\n* Supporting digital therapy platforms and chatbots [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction]\n\n**Benefits of NLP in Mental Health Detection**\n\nThe use of NLP tasks in mental health detection has the potential to improve mental health outcomes by providing early warning signs and supporting decision-making by mental health professionals.\n\n**Conclusion**\n\nIn conclusion, NLP tasks such as sentiment analysis, emotion classification, topic modeling, text classification, and named entity recognition are commonly used in mental health detection to analyze human language and identify patterns that indicate emotional distress, depression, or suicidal thoughts.\n\n**Confidence Assessment**\n\nI am confident that the NLP tasks mentioned above are commonly used in mental health detection, as they are supported by the research context provided. However, the effectiveness of these NLP tasks in detecting mental health concerns may vary depending on the specific application and dataset used.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.4,
+            "relevant_in_top_k": 2,
+            "k": 5,
+            "explanation": "2/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 2,
+            "total_relevant": 1,
+            "explanation": "2/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.571,
+            "precision": 0.4,
+            "recall": 1.0,
+            "explanation": "F1 = 0.571 (P=0.400, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 1.0,
+            "relevant_positions": 2,
+            "explanation": "Average Precision across 2 relevant positions = 1.000"
+          },
+          "ndcg_at_k": {
+            "score": 1.0,
+            "dcg": 1.631,
+            "idcg": 1.631,
+            "explanation": "NDCG@5 = 1.000 (DCG=1.631, IDCG=1.631)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.818,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.818"
+          },
+          "bleu_score": {
+            "score": 0.031,
+            "bleu_1": 0.039,
+            "bleu_2": 0.037,
+            "bleu_4": 0.031,
+            "explanation": "BLEU-4=0.031 (BLEU-1=0.039, BLEU-2=0.037)"
+          },
+          "rouge_l_score": {
+            "score": 0.074,
+            "precision": 0.039,
+            "recall": 0.857,
+            "lcs_length": 18,
+            "explanation": "ROUGE-L F1=0.074 (P=0.039, R=0.857, LCS=18 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.9,
+            "explanation": "The answer is faithful to the provided context, as it accurately lists the NLP tasks mentioned in the sources and provides relevant information from the abstracts and introduction. However, the 'Benefits of NLP in Mental Health Detection' and 'Conclusion' sections are not directly supported by the context, and the 'Confidence Assessment' section is a subjective evaluation that is not explicitly mentioned in the sources."
+          },
+          "answer_completeness": {
+            "score": 1.0,
+            "explanation": "The generated answer completely covers the expected answer, including all key NLP tasks used in mental health detection (sentiment analysis, emotion classification, topic modeling, text classification, and named entity recognition), and provides additional context and benefits of using NLP in mental health detection."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 2.164,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.025,
+              "summarization": 1.15,
+              "explanation": 0.989
+            },
+            "explanation": "Total pipeline time: 2.164s"
+          }
+        },
+        "overall_score": 0.733
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.025,
+        "summarization": 1.15,
+        "explanation": 0.989
+      }
+    },
+    {
+      "query": "What machine learning techniques are used for suicide risk detection?",
+      "ground_truth": "Traditional machine learning approaches used feature engineering techniques such as Bag-of-Words, TF-IDF features, and Linguistic Inquiry and Word Count (LIWC). Deep learning approaches using RNNs, LSTMs, CNNs for text, and Transformer-based models like BERT have significantly improved text classification performance.",
+      "answer": "**Machine Learning Techniques for Suicide Risk Detection**\n\nSeveral machine learning techniques are employed to detect suicide risk from text data, with a focus on natural language processing (NLP) and deep learning architectures. The following techniques are used for suicide risk detection:\n\n**Traditional Machine Learning Techniques**\n\n1. **Feature Engineering**: Techniques such as Bag-of-Words, TF-IDF features, and Linguistic Inquiry and Word Count (LIWC) are used to extract relevant features from text data. (Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis)\n2. **Machine Learning Models**: Models such as Logistic Regression, Support Vector Machines, and Random Forests are used to classify text data as high or low risk for suicide. (Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis)\n\n**Deep Learning Architectures**\n\n1. **Recurrent Neural Networks (RNNs)**: RNNs are used to model sequential data, such as text, and capture temporal relationships between words. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n2. **Long Short-Term Memory Networks (LSTMs)**: LSTMs are a type of RNN that can learn long-term dependencies in text data. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n3. **Convolutional Neural Networks (CNNs) for Text**: CNNs are used to extract features from text data and can be effective for text classification tasks. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n4. **Transformer-Based Models**: Models such as BERT (Bidirectional Encoder Representations from Transformers) are particularly effective for text classification tasks, as they capture contextual relationships between words. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n\n**Data Sources and Challenges**\n\n1. **Labeled Datasets**: Machine learning models require labeled datasets for training and evaluation. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n2. **Real-World Examples**: Conversations and social media posts can provide real-world examples of distress signals and crisis language. (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:])\n3. **Challenges in Suicide Risk Detection**: Despite the promise of AI systems in mental health monitoring, several challenges remain, including the need for high-quality labeled datasets and the potential for bias in machine learning models. (Source: Artificial Intelligence for Mental Health and Suicide Risk — 5. Challenges in Suicide Risk Detection)\n\n**Conclusion**\n\nMachine learning techniques, particularly deep learning architectures, have shown promise in detecting suicide risk from text data. However, challenges remain, and further research is needed to improve the accuracy and reliability of these systems.\n\n**Confidence Assessment**\n\nThe confidence level for this answer is **High** (9/10). The information is based on a comprehensive review of the research context, which provides a clear overview of the machine learning techniques used for suicide risk detection. The sources cited are relevant and provide a solid foundation for the answer. However, as with any research, there may be some uncertainty or debate surrounding the effectiveness of these techniques, and further research is needed to fully understand their potential and limitations.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.6,
+            "relevant_in_top_k": 3,
+            "k": 5,
+            "explanation": "3/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 3,
+            "total_relevant": 2,
+            "explanation": "3/2 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.75,
+            "precision": 0.6,
+            "recall": 1.0,
+            "explanation": "F1 = 0.750 (P=0.600, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.7,
+            "relevant_positions": 3,
+            "explanation": "Average Precision across 3 relevant positions = 0.700"
+          },
+          "ndcg_at_k": {
+            "score": 0.853,
+            "dcg": 1.818,
+            "idcg": 2.131,
+            "explanation": "NDCG@5 = 0.853 (DCG=1.818, IDCG=2.131)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.579,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.579"
+          },
+          "bleu_score": {
+            "score": 0.022,
+            "bleu_1": 0.043,
+            "bleu_2": 0.032,
+            "bleu_4": 0.022,
+            "explanation": "BLEU-4=0.022 (BLEU-1=0.043, BLEU-2=0.032)"
+          },
+          "rouge_l_score": {
+            "score": 0.074,
+            "precision": 0.039,
+            "recall": 0.6,
+            "lcs_length": 24,
+            "explanation": "ROUGE-L F1=0.074 (P=0.039, R=0.600, LCS=24 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.9,
+            "explanation": "The answer is largely faithful to the provided context, accurately summarizing the machine learning techniques used for suicide risk detection. However, some minor details, such as the specific challenges mentioned, are not directly supported by the context, but are reasonable inferences based on the information provided."
+          },
+          "answer_completeness": {
+            "score": 0.8,
+            "explanation": "The generated answer covers most of the expected key points, including traditional machine learning techniques (feature engineering, machine learning models), deep learning architectures (RNNs, LSTMs, CNNs, Transformer-based models), and challenges in suicide risk detection. However, it misses some specific details, such as the use of Linguistic Inquiry and Word Count (LIWC) in traditional machine learning, and does not provide a clear explanation of the advantages of deep learning approaches over traditional ones. Additionally, the answer could benefit from more concrete examples and a more detailed discussion of the challenges and limitations of these techniques."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 19.421,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.021,
+              "summarization": 6.262,
+              "explanation": 13.138
+            },
+            "explanation": "Total pipeline time: 19.421s"
+          }
+        },
+        "overall_score": 0.69
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.021,
+        "summarization": 6.262,
+        "explanation": 13.138
+      }
+    },
+    {
+      "query": "What data sources are used in suicide risk detection research?",
+      "ground_truth": "Researchers often analyze posts from social media platforms such as Reddit mental health communities, Twitter posts, and online support forums. Crisis Text Line conversations also provide real-world examples of distress signals and crisis language.",
+      "answer": "**Data Sources Used in Suicide Risk Detection Research**\n\nSuicide risk detection research employs various data sources to identify individuals at risk and develop effective interventions. The following data sources have been utilized in research:\n\n1. **Social Media Platforms**: Researchers analyze posts from social media platforms, including:\n\t* Reddit mental health communities [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:]\n\t* Twitter posts [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:]\n\t* Online support forums [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:]\n\tThese platforms provide valuable insights into individuals' emotional distress and mental health concerns.\n2. **Crisis Text Lines**: Crisis counseling platforms, where individuals communicate with trained responders, offer another valuable source of data [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:].\n3. **Online Text Conversations**: Real-world examples of distress signals and crisis language can be found in online text conversations, which provide a rich source of data for machine learning models [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:].\n\n\nThese data sources are essential for developing and training machine learning models, such as Recurrent Neural Networks (RNNs), Long Short-Term Memory Networks (LSTMs), Convolutional Neural Networks for text, and Transformer-based models like BERT [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:]. These models can detect subtle cues in language that indicate psychological distress and help identify individuals at risk of suicide.\n\n**Conclusion**\n\nThe use of these data sources has the potential to improve intervention outcomes and reduce the number of suicides worldwide [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction]. By leveraging social media platforms, crisis text lines, and online text conversations, researchers can develop effective machine learning models to detect individuals at risk of suicide.\n\n**Confidence Assessment**\n\nBased on the provided research context, I am confident that the data sources mentioned (social media platforms, crisis text lines, and online text conversations) are indeed used in suicide risk detection research. The sources cited from \"Artificial Intelligence for Mental Health and Suicide Risk\" provide a clear and comprehensive overview of the data sources employed in this field.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.6,
+            "relevant_in_top_k": 3,
+            "k": 5,
+            "explanation": "3/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 3,
+            "total_relevant": 1,
+            "explanation": "3/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.75,
+            "precision": 0.6,
+            "recall": 1.0,
+            "explanation": "F1 = 0.750 (P=0.600, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.756,
+            "relevant_positions": 3,
+            "explanation": "Average Precision across 3 relevant positions = 0.756"
+          },
+          "ndcg_at_k": {
+            "score": 0.885,
+            "dcg": 1.887,
+            "idcg": 2.131,
+            "explanation": "NDCG@5 = 0.885 (DCG=1.887, IDCG=2.131)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.694,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.694"
+          },
+          "bleu_score": {
+            "score": 0.032,
+            "bleu_1": 0.068,
+            "bleu_2": 0.053,
+            "bleu_4": 0.032,
+            "explanation": "BLEU-4=0.032 (BLEU-1=0.068, BLEU-2=0.053)"
+          },
+          "rouge_l_score": {
+            "score": 0.106,
+            "precision": 0.058,
+            "recall": 0.647,
+            "lcs_length": 22,
+            "explanation": "ROUGE-L F1=0.106 (P=0.058, R=0.647, LCS=22 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.9,
+            "explanation": "The answer is mostly faithful to the provided context, accurately citing sources and describing the data sources used in suicide risk detection research. However, it slightly exceeds the scope of the provided context by mentioning the potential to improve intervention outcomes and reduce the number of suicides worldwide, which is only mentioned in the introduction section and not directly related to the data sources."
+          },
+          "answer_completeness": {
+            "score": 0.8,
+            "explanation": "The generated answer covers the expected answer's key points, including social media platforms (Reddit, Twitter, and online support forums), crisis text lines, and online text conversations. However, it lacks specific details about the types of data extracted from these sources, such as language patterns, sentiment analysis, and crisis language. Additionally, the generated answer includes an excessive amount of information about machine learning models and their architectures, which is not present in the expected answer."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 15.884,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.068,
+              "summarization": 5.73,
+              "explanation": 10.086
+            },
+            "explanation": "Total pipeline time: 15.884s"
+          }
+        },
+        "overall_score": 0.71
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.068,
+        "summarization": 5.73,
+        "explanation": 10.086
+      }
+    },
+    {
+      "query": "What are the main challenges in suicide risk detection using AI?",
+      "ground_truth": "Key challenges include data privacy concerns since mental health data is highly sensitive, model bias due to unrepresentative training datasets, false positives and false negatives in predictions, and difficulties with sarcasm, metaphor, and cultural differences in language interpretation.",
+      "answer": "**Main Challenges in Suicide Risk Detection using AI**\n\nThe use of Artificial Intelligence (AI) in mental health and suicide risk detection has shown promise, but several challenges remain. These challenges are crucial to address in order to ensure the effective and responsible use of AI in this field.\n\n**Data Challenges**\n\nOne of the primary challenges in suicide risk detection using AI is the availability of high-quality, labeled datasets for training and evaluation. Machine learning models require large amounts of data to learn patterns and make accurate predictions. However, collecting and labeling data for suicide risk detection can be a significant challenge [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: 4. Data Sources for Suicide Detection].\n\n**Technical Challenges**\n\nAnother challenge in suicide risk detection using AI is the complexity of the models themselves. The use of deep learning architectures, such as Recurrent Neural Networks (RNNs), Long Short-Term Memory Networks (LSTMs), Convolutional Neural Networks for text, and Transformer-based models like BERT, can be complex and require significant computational resources [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: 1. Model Complexity]. These models can be difficult to interpret and may require significant expertise to develop and deploy.\n\n**Ethical Challenges**\n\nThe use of AI in mental health raises important ethical questions, such as ensuring the confidentiality and security of user data, preventing bias in AI decision-making, and avoiding the potential for AI systems to exacerbate mental health issues [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: 7. Ethical Considerations]. Ensuring that AI systems are transparent, explainable, and fair is critical to building trust with users and ensuring the responsible use of AI in mental health.\n\n**Other Challenges**\n\nIn addition to data, technical, and ethical challenges, there are other challenges in suicide risk detection using AI. One of the most significant challenges is early detection of suicidal ideation. AI systems may struggle to identify subtle cues in language that indicate psychological distress [Source: Artificial Intelligence for Mental Health and Suicide Risk — Detection Abstract]. This can be a significant challenge, as early detection of suicidal ideation is critical for prevention.\n\n**Conclusion**\n\nIn summary, the main challenges in suicide risk detection using AI include data challenges, technical challenges, and ethical challenges. Addressing these challenges is essential to ensure the effective and responsible use of AI in mental health and suicide risk detection.\n\n**Confidence Assessment**\n\nBased on the research context provided, I am confident that the main challenges in suicide risk detection using AI are accurately identified as data challenges, technical challenges, and ethical challenges. However, I would like to note that the research context is limited to a specific source, and further research may be needed to confirm the accuracy of these challenges. Confidence level: 8/10.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.6,
+            "relevant_in_top_k": 3,
+            "k": 5,
+            "explanation": "3/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 3,
+            "total_relevant": 1,
+            "explanation": "3/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.75,
+            "precision": 0.6,
+            "recall": 1.0,
+            "explanation": "F1 = 0.750 (P=0.600, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.7,
+            "relevant_positions": 3,
+            "explanation": "Average Precision across 3 relevant positions = 0.700"
+          },
+          "ndcg_at_k": {
+            "score": 0.853,
+            "dcg": 1.818,
+            "idcg": 2.131,
+            "explanation": "NDCG@5 = 0.853 (DCG=1.818, IDCG=2.131)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.478,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.478"
+          },
+          "bleu_score": {
+            "score": 0.002,
+            "bleu_1": 0.038,
+            "bleu_2": 0.016,
+            "bleu_4": 0.002,
+            "explanation": "BLEU-4=0.002 (BLEU-1=0.038, BLEU-2=0.016)"
+          },
+          "rouge_l_score": {
+            "score": 0.059,
+            "precision": 0.032,
+            "recall": 0.395,
+            "lcs_length": 15,
+            "explanation": "ROUGE-L F1=0.059 (P=0.032, R=0.395, LCS=15 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.8,
+            "explanation": "The answer is mostly faithful to the provided context, accurately identifying data, technical, and ethical challenges in suicide risk detection using AI. However, it slightly overextends the context by mentioning 'early detection of suicidal ideation' as a separate challenge, which is actually mentioned in the context as a critical aspect of mental health disorders (Detection Abstract)."
+          },
+          "answer_completeness": {
+            "score": 0.8,
+            "explanation": "The generated answer covers most of the expected key points, including data privacy concerns, model bias, false positives and negatives, and difficulties with language interpretation. However, it does not explicitly mention sarcasm, metaphor, and cultural differences, which are also important challenges in suicide risk detection using AI. The answer does provide a comprehensive overview of the challenges, including data, technical, and ethical considerations, but lacks a direct mention of the specific language-related challenges mentioned in the expected answer."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 17.389,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.026,
+              "summarization": 6.075,
+              "explanation": 11.288
+            },
+            "explanation": "Total pipeline time: 17.389s"
+          }
+        },
+        "overall_score": 0.67
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.026,
+        "summarization": 6.075,
+        "explanation": 11.288
+      }
+    },
+    {
+      "query": "How can AI-powered chatbots support mental health services?",
+      "ground_truth": "AI-powered chatbots can provide emotional support conversations, mental health screening, suicide risk assessment, and referral to crisis resources. When integrated with machine learning models, chatbots can automatically detect high-risk messages and trigger emergency responses.",
+      "answer": "**Supporting Mental Health Services with AI-Powered Chatbots**\n\nAI-powered chatbots have the potential to significantly support mental health services by providing immediate responses, guiding users toward professional resources, and performing various functions such as emotional support conversations, mental health screening, and suicide risk assessment. These chatbots can be integrated with machine learning models to automatically detect high-risk messages and trigger emergency response protocols.\n\n**Key Functions of AI-Powered Chatbots in Mental Health:**\n\n1. **Emotional Support Conversations**: AI-powered chatbots can engage in conversations that provide emotional support to users, helping them cope with mental health issues [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include].\n2. **Mental Health Screening**: Chatbots can perform mental health screenings to identify potential issues and guide users toward professional resources [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include].\n3. **Suicide Risk Assessment**: AI-powered chatbots can assess the risk of suicidal ideation and trigger emergency response protocols if necessary [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include].\n4. **Referral to Crisis Resources**: Chatbots can refer users to crisis resources, such as emergency services or mental health professionals [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include].\n\n**Benefits of AI-Powered Mental Health Monitoring Systems:**\n\n1. **Early Warning Signs Detection**: AI-powered systems can detect early warning signs of suicidal ideation, enabling early intervention [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction].\n2. **Decision Support for Mental Health Professionals**: AI-powered systems can provide decision support to mental health professionals, helping them make informed decisions [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction].\n3. **Crisis Intervention**: AI-powered systems can enable crisis intervention through automated systems, providing immediate support to users in crisis [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction].\n4. **Digital Therapy Platforms and Chatbots**: AI-powered systems can support digital therapy platforms and chatbots, providing users with accessible mental health support [Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction].\n\n**Future Research Directions:**\n\n1. **Multimodal Analysis**: Future research may explore multimodal analysis combining text, voice, and behavioral signals to improve AI-powered chatbots [Source: Artificial Intelligence for Mental Health and Suicide Risk — Future Research Directions].\n2. **Improved Contextual Understanding**: Research may focus on improving contextual understanding of emotional language to enhance AI-powered chatbots [Source: Artificial Intelligence for Mental Health and Suicide Risk — Future Research Directions].\n3. **Real-Time Crisis Detection**: Future research may aim to develop real-time crisis detection systems to provide immediate support to users in crisis [Source: Artificial Intelligence for Mental Health and Suicide Risk — Future Research Directions].\n4. **Personalized Mental Health Support**: Research may explore personalized mental health support systems to provide tailored support to users [Source: Artificial Intelligence for Mental Health and Suicide Risk — Future Research Directions].\n\n**Conclusion**\n\nAI-powered chatbots have the potential to revolutionize mental health services by providing immediate support, guiding users toward professional resources, and performing various functions to support mental health. Future research directions may focus on improving multimodal analysis, contextual understanding, real-time crisis detection, and personalized mental health support.\n\n**Confidence Assessment**\n\nBased on the provided research context, I am confident that AI-powered chatbots can support mental health services by providing immediate responses, guiding users toward professional resources, and performing various functions such as emotional support conversations, mental health screening, and suicide risk assessment. However, I acknowledge that there are limitations and uncertainties associated with AI-powered chatbots, particularly in terms of multimodal analysis, contextual understanding, and real-time crisis detection. Further research is needed to address these limitations and improve the effectiveness of AI-powered chatbots in mental health services.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.6,
+            "relevant_in_top_k": 3,
+            "k": 5,
+            "explanation": "3/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 3,
+            "total_relevant": 1,
+            "explanation": "3/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.75,
+            "precision": 0.6,
+            "recall": 1.0,
+            "explanation": "F1 = 0.750 (P=0.600, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.917,
+            "relevant_positions": 3,
+            "explanation": "Average Precision across 3 relevant positions = 0.917"
+          },
+          "ndcg_at_k": {
+            "score": 0.967,
+            "dcg": 2.062,
+            "idcg": 2.131,
+            "explanation": "NDCG@5 = 0.967 (DCG=2.062, IDCG=2.131)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.864,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.864"
+          },
+          "bleu_score": {
+            "score": 0.026,
+            "bleu_1": 0.045,
+            "bleu_2": 0.039,
+            "bleu_4": 0.026,
+            "explanation": "BLEU-4=0.026 (BLEU-1=0.045, BLEU-2=0.039)"
+          },
+          "rouge_l_score": {
+            "score": 0.065,
+            "precision": 0.034,
+            "recall": 0.618,
+            "lcs_length": 21,
+            "explanation": "ROUGE-L F1=0.065 (P=0.034, R=0.618, LCS=21 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.95,
+            "explanation": "The answer is largely faithful to the provided context, accurately summarizing the key points and functions of AI-powered chatbots in mental health services. However, some minor inferences and generalizations are made, such as the potential of AI-powered chatbots to 'revolutionize' mental health services, which is not explicitly stated in the context. Additionally, the answer does not fully capture the nuances and limitations of AI-powered chatbots, but overall, it remains grounded in the provided sources."
+          },
+          "answer_completeness": {
+            "score": 0.95,
+            "explanation": "The generated answer covers most of the expected key points, including emotional support conversations, mental health screening, suicide risk assessment, and referral to crisis resources. It also mentions the integration with machine learning models for automatic detection of high-risk messages and emergency response protocols. However, it does not explicitly mention the potential for AI-powered chatbots to provide decision support for mental health professionals, which is a key point in the expected answer. Nevertheless, the generated answer provides a comprehensive overview of the potential benefits and future research directions of AI-powered chatbots in mental health services."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 19.853,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.026,
+              "summarization": 6.391,
+              "explanation": 13.436
+            },
+            "explanation": "Total pipeline time: 19.853s"
+          }
+        },
+        "overall_score": 0.757
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.026,
+        "summarization": 6.391,
+        "explanation": 13.436
+      }
+    },
+    {
+      "query": "What ethical principles should AI mental health systems follow?",
+      "ground_truth": "Key ethical principles include transparency in AI decision-making, protection of user privacy, human oversight for critical decisions, and responsible handling of crisis situations. AI systems should assist mental health professionals rather than replace them.",
+      "answer": "**Ethical Principles for AI Mental Health Systems**\n\nThe integration of artificial intelligence (AI) in mental health systems raises important ethical considerations. To ensure the responsible development and deployment of AI mental health systems, several key ethical principles should be followed.\n\n**1. Transparency in AI Decision-Making**\n\nTransparency is essential in AI decision-making to ensure that users understand the reasoning behind the system's recommendations or actions. This principle is crucial in AI mental health systems, where decisions can have significant consequences for users' well-being. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n\n**2. Protection of User Privacy**\n\nProtecting user privacy is vital in AI mental health systems, as users may share sensitive information with the system. This principle requires that AI systems implement robust data protection measures to safeguard user confidentiality. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n\n**3. Additional Ethical Considerations**\n\nAI mental health systems should also consider the following ethical principles:\n\n* **Accuracy and Reliability**: AI systems should be designed to provide accurate and reliable results, minimizing the risk of misdiagnosis or incorrect recommendations. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n* **Cultural Sensitivity**: AI systems should be able to interpret and respond to cultural differences, idioms, and nuances to ensure effective communication with users from diverse backgrounds. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n* **Sarcasm and Metaphor Interpretation**: AI systems should be able to recognize and interpret sarcasm, metaphors, and other forms of figurative language to avoid misinterpretation of user input. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n* **Referral to Crisis Resources**: AI systems should be designed to trigger emergency response protocols when users indicate high-risk messages or suicidal ideation, ensuring timely intervention and support. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n\n**Role of AI in Mental Health Chatbots**\n\nAI-powered chatbots can provide emotional support conversations, mental health screening, suicide risk assessment, and referrals to crisis resources. These systems can also detect early warning signs of suicidal ideation, provide decision support to mental health professionals, and enable crisis intervention through automated systems. [Source: Artificial Intelligence for Mental Health and Suicide Risk]\n\n**Conclusion**\n\nBy following these ethical principles and considering the specific challenges and opportunities presented by AI mental health systems, developers can create responsible and effective systems that support users' mental health and well-being.\n\n**Confidence Assessment:**\n\nBased on the summarized research context, I am confident that the identified ethical principles (Transparency in AI decision-making, Protection of user privacy, Accuracy and reliability, Cultural sensitivity, Sarcasm and metaphor interpretation, and Referral to crisis resources) are essential for AI mental health systems. The confidence level is 9 out of 10, as the research context provides a comprehensive overview of the ethical considerations for AI mental health systems. However, there may be additional considerations not covered in the provided research context.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.6,
+            "relevant_in_top_k": 3,
+            "k": 5,
+            "explanation": "3/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 3,
+            "total_relevant": 1,
+            "explanation": "3/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.75,
+            "precision": 0.6,
+            "recall": 1.0,
+            "explanation": "F1 = 0.750 (P=0.600, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.867,
+            "relevant_positions": 3,
+            "explanation": "Average Precision across 3 relevant positions = 0.867"
+          },
+          "ndcg_at_k": {
+            "score": 0.947,
+            "dcg": 2.018,
+            "idcg": 2.131,
+            "explanation": "NDCG@5 = 0.947 (DCG=2.018, IDCG=2.131)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.818,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.818"
+          },
+          "bleu_score": {
+            "score": 0.02,
+            "bleu_1": 0.045,
+            "bleu_2": 0.034,
+            "bleu_4": 0.02,
+            "explanation": "BLEU-4=0.020 (BLEU-1=0.045, BLEU-2=0.034)"
+          },
+          "rouge_l_score": {
+            "score": 0.071,
+            "precision": 0.038,
+            "recall": 0.529,
+            "lcs_length": 18,
+            "explanation": "ROUGE-L F1=0.071 (P=0.038, R=0.529, LCS=18 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.8,
+            "explanation": "The answer is mostly faithful to the provided context, as it accurately extracts and summarizes the key ethical principles and the role of AI in mental health chatbots. However, it introduces the concept of 'Accuracy and Reliability' as a separate principle, which is not explicitly mentioned in the context. Additionally, the explanation for 'Referral to Crisis Resources' is not directly supported by the context, but rather inferred from the description of AI-powered chatbots' functions."
+          },
+          "answer_completeness": {
+            "score": 0.9,
+            "explanation": "The generated answer covers all key points mentioned in the expected answer, including transparency in AI decision-making, protection of user privacy, human oversight for critical decisions, and responsible handling of crisis situations. However, it does not explicitly mention human oversight for critical decisions, which is a crucial aspect of AI mental health systems. Nevertheless, the answer provides a comprehensive overview of the ethical principles and considerations for AI mental health systems, making it a nearly complete response."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 17.452,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.04,
+              "summarization": 6.009,
+              "explanation": 11.403
+            },
+            "explanation": "Total pipeline time: 17.452s"
+          }
+        },
+        "overall_score": 0.731
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.04,
+        "summarization": 6.009,
+        "explanation": 11.403
+      }
+    },
+    {
+      "query": "What future research directions are suggested for AI in mental health?",
+      "ground_truth": "Future research may explore multimodal analysis combining text, voice, and behavioral signals, improved contextual understanding of emotional language, real-time crisis detection systems, and personalized mental health support systems.",
+      "answer": "**Future Research Directions for AI in Mental Health**\n\nThe integration of Artificial Intelligence (AI) in mental health has shown promising results in detecting early warning signs of suicidal ideation, providing emotional support, and enabling crisis intervention. However, there are several areas that require further research to fully harness the potential of AI in mental health. The following are some suggested future research directions:\n\n1. **Multimodal Analysis**: Future research may explore the combination of text, voice, and behavioral signals to better understand emotional states and detect mental health issues [Source: Future Research Directions].\n2. **Improved Contextual Understanding**: AI systems need to improve their contextual understanding of emotional language to provide more accurate and personalized support [Source: Future Research Directions].\n3. **Real-time Crisis Detection Systems**: Developing real-time crisis detection systems that can automatically detect high-risk messages and trigger emergency response protocols is crucial [Source: Common Deep Learning Architectures].\n4. **Personalized Mental Health Support Systems**: AI-powered systems can provide personalized mental health support by analyzing individual behavior and preferences [Source: Future Research Directions].\n5. **Large Language Models and Deep Learning**: Advancements in large language models and deep learning can enhance the ability of AI systems to understand complex emotional states [Source: Future Research Directions].\n6. **Integration with Machine Learning Models**: Chatbots integrated with machine learning models can automatically detect high-risk messages and trigger emergency response protocols [Source: Common Deep Learning Architectures].\n7. **Ethical Considerations**: The use of AI in mental health raises important ethical questions that need to be addressed [Source: Common Deep Learning Architectures].\n\nThese research directions have the potential to revolutionize mental health care by providing early detection, personalized support, and crisis intervention. By exploring these areas, researchers can develop more effective AI-powered mental health monitoring systems that can help prevent suicidal ideation and improve overall mental well-being.\n\n**Key Takeaways**\n\n* Multimodal analysis, improved contextual understanding, and real-time crisis detection systems are essential for developing effective AI-powered mental health monitoring systems.\n* Personalized mental health support systems and large language models and deep learning can enhance the ability of AI systems to understand complex emotional states.\n* Integration with machine learning models and chatbots can automatically detect high-risk messages and trigger emergency response protocols.\n* Ethical considerations are crucial when using AI in mental health.\n\n**Confidence Assessment**\n\nBased on the provided research context, I am confident that the suggested future research directions for AI in mental health are accurate and comprehensive. The sources cited provide a solid foundation for understanding the current state of AI in mental health and the areas that require further research. However, it is essential to note that the field of AI in mental health is rapidly evolving, and new research may emerge that challenges or builds upon these directions.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.4,
+            "relevant_in_top_k": 2,
+            "k": 5,
+            "explanation": "2/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 2,
+            "total_relevant": 1,
+            "explanation": "2/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.571,
+            "precision": 0.4,
+            "recall": 1.0,
+            "explanation": "F1 = 0.571 (P=0.400, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.833,
+            "relevant_positions": 2,
+            "explanation": "Average Precision across 2 relevant positions = 0.833"
+          },
+          "ndcg_at_k": {
+            "score": 0.92,
+            "dcg": 1.5,
+            "idcg": 1.631,
+            "explanation": "NDCG@5 = 0.920 (DCG=1.500, IDCG=1.631)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.726,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.726"
+          },
+          "bleu_score": {
+            "score": 0.024,
+            "bleu_1": 0.051,
+            "bleu_2": 0.042,
+            "bleu_4": 0.024,
+            "explanation": "BLEU-4=0.024 (BLEU-1=0.051, BLEU-2=0.042)"
+          },
+          "rouge_l_score": {
+            "score": 0.087,
+            "precision": 0.046,
+            "recall": 0.75,
+            "lcs_length": 21,
+            "explanation": "ROUGE-L F1=0.087 (P=0.046, R=0.750, LCS=21 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.8,
+            "explanation": "The answer is mostly faithful to the provided context, but it includes some claims that are not directly supported by the sources. For example, the statement 'The integration of Artificial Intelligence (AI) in mental health has shown promising results in detecting early warning signs of suicidal ideation, providing emotional support, and enabling crisis intervention' is not explicitly mentioned in the sources. However, the sources do provide evidence for the other claims, making the answer mostly faithful."
+          },
+          "answer_completeness": {
+            "score": 0.9,
+            "explanation": "The generated answer covers most of the expected key points, including multimodal analysis, improved contextual understanding, real-time crisis detection systems, and personalized mental health support systems. However, it misses the point of 'real-time crisis detection systems' being a part of the expected answer, but it does cover the concept in point 3. It also includes additional points such as large language models and deep learning, integration with machine learning models, and ethical considerations, which are not mentioned in the expected answer but are relevant to the topic."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 16.93,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.04,
+              "summarization": 5.949,
+              "explanation": 10.941
+            },
+            "explanation": "Total pipeline time: 16.930s"
+          }
+        },
+        "overall_score": 0.688
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.04,
+        "summarization": 5.949,
+        "explanation": 10.941
+      }
+    },
+    {
+      "query": "Why is early detection of suicidal ideation important?",
+      "ground_truth": "Suicide is a major global public health issue with hundreds of thousands dying each year. Early identification of suicidal ideation can significantly improve intervention outcomes. AI-powered systems can detect early warning signs and provide decision support to mental health professionals.",
+      "answer": "**Why is Early Detection of Suicidal Ideation Important?**\n\nEarly detection of suicidal ideation is crucial for improving intervention outcomes and preventing tragic events. According to global health organizations, hundreds of thousands of individuals die by suicide each year, making it a significant global public health issue (Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction). Early identification of suicidal ideation can significantly improve intervention outcomes, as it allows for timely and effective support to individuals at risk (Source: Artificial Intelligence for Mental Health and Suicide Risk — 1. Introduction).\n\n**Consequences of Delayed Detection**\n\nDelayed detection of suicidal ideation can lead to severe consequences, including:\n\n1. Increased risk of suicidal behavior\n2. Poor intervention outcomes\n3. Higher mortality rates\n4. Long-term psychological trauma for individuals and their families\n\n**Importance of Early Detection**\n\nEarly detection of suicidal ideation is essential for several reasons:\n\n1. **Timely Intervention**: Early detection enables healthcare professionals to provide timely and effective support, reducing the risk of suicidal behavior.\n2. **Improved Outcomes**: Early detection leads to better intervention outcomes, as individuals receive support before the situation escalates.\n3. **Reduced Mortality Rates**: Early detection can reduce mortality rates by identifying individuals at risk and providing them with the necessary support.\n4. **Prevention of Long-term Trauma**: Early detection can prevent long-term psychological trauma for individuals and their families by providing timely support and intervention.\n\n**Advances in Artificial Intelligence**\n\nAdvances in artificial intelligence, particularly natural language processing (NLP), have created new opportunities for early detection of suicidal ideation. Automated systems can analyze text data for indicators of psychological distress, such as language associated with hopelessness, isolation, or self-harm (Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis). Machine learning models can learn linguistic patterns associated with suicidal ideation and classify messages according to risk level (Source: Artificial Intelligence for Mental Health and Suicide Risk — 2. Natural Language Processing in Mental Health Analysis).\n\n**Effective Approaches and Models**\n\nEffective approaches and models for early detection of suicidal ideation include:\n\n1. **Recurrent Neural Networks (RNNs)**\n2. **Long Short-Term Memory Networks (LSTMs)**\n3. **Convolutional Neural Networks for text**\n4. **Transformer-based models such as BERT**\n\nTransformer models, in particular, capture contextual relationships between words and can detect subtle cues in language that indicate psychological distress (Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:).\n\n**Conclusion**\n\nEarly detection of suicidal ideation is critical for prevention, and advances in artificial intelligence have created new opportunities for early detection. Effective approaches and models, such as Transformer-based models, can analyze text data for indicators of psychological distress. However, challenges remain, and addressing these challenges will be crucial for developing effective AI-powered systems for early detection of suicidal ideation.\n\n**Confidence Assessment**\n\nBased on the research context, I am confident that early detection of suicidal ideation is crucial for improving intervention outcomes and preventing tragic events. The use of artificial intelligence, particularly NLP, has created new opportunities for early detection, and effective approaches and models are being developed to analyze text data for indicators of psychological distress. However, challenges remain, and further research is needed to address these challenges and develop effective AI-powered systems for early detection of suicidal ideation.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.4,
+            "relevant_in_top_k": 2,
+            "k": 5,
+            "explanation": "2/5 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 2,
+            "total_relevant": 1,
+            "explanation": "2/1 relevant items found in top-5."
+          },
+          "f1_at_k": {
+            "score": 0.571,
+            "precision": 0.4,
+            "recall": 1.0,
+            "explanation": "F1 = 0.571 (P=0.400, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 0.833,
+            "relevant_positions": 2,
+            "explanation": "Average Precision across 2 relevant positions = 0.833"
+          },
+          "ndcg_at_k": {
+            "score": 0.92,
+            "dcg": 1.5,
+            "idcg": 1.631,
+            "explanation": "NDCG@5 = 0.920 (DCG=1.500, IDCG=1.631)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-5."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.796,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.796"
+          },
+          "bleu_score": {
+            "score": 0.026,
+            "bleu_1": 0.06,
+            "bleu_2": 0.045,
+            "bleu_4": 0.026,
+            "explanation": "BLEU-4=0.026 (BLEU-1=0.060, BLEU-2=0.045)"
+          },
+          "rouge_l_score": {
+            "score": 0.08,
+            "precision": 0.043,
+            "recall": 0.575,
+            "lcs_length": 23,
+            "explanation": "ROUGE-L F1=0.080 (P=0.043, R=0.575, LCS=23 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.8,
+            "explanation": "The answer is mostly faithful to the provided context, as it accurately cites sources and provides relevant information about the importance of early detection of suicidal ideation, the role of artificial intelligence, and the challenges that remain. However, some sections, such as the 'Consequences of Delayed Detection' and 'Importance of Early Detection' sections, contain information that is not explicitly stated in the context, but can be inferred. The answer also provides a clear conclusion and confidence assessment, which is not present in the original context."
+          },
+          "answer_completeness": {
+            "score": 0.9,
+            "explanation": "The generated answer covers most key points, including the importance of early detection, consequences of delayed detection, importance of early detection, advances in artificial intelligence, effective approaches and models, and challenges remaining. However, it does not explicitly mention the role of mental health professionals in early detection and intervention, which is a crucial aspect of the expected answer."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 20.908,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.034,
+              "summarization": 6.95,
+              "explanation": 13.924
+            },
+            "explanation": "Total pipeline time: 20.908s"
+          }
+        },
+        "overall_score": 0.694
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.034,
+        "summarization": 6.95,
+        "explanation": 13.924
+      }
+    },
+    {
+      "query": "What is the conclusion of this paper on AI for mental health?",
+      "ground_truth": "AI and NLP offer promising tools for detecting suicide risk and supporting mental health care by analyzing textual signals from digital communication platforms to identify early warning signs. However, these technologies must be implemented properly with ethical considerations. When implemented properly, AI can play a valuable role in improving mental health support and suicide prevention efforts.",
+      "answer": "**Conclusion of the Paper on AI for Mental Health**\n\nThe paper on \"Artificial Intelligence for Mental Health and Suicide Risk\" concludes that AI can play a valuable role in improving mental health support and suicide prevention efforts when implemented properly [Source: Artificial Intelligence for Mental Health and Suicide Risk — 9. Conclusion].\n\n**Key Findings and Recommendations**\n\nThe paper highlights the importance of human oversight for critical decisions and responsible handling of crisis situations in AI systems [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include:]. This suggests that AI systems should be designed to assist mental health professionals rather than replace them [Source: Artificial Intelligence for Mental Health and Suicide Risk — Common deep learning architectures include: 8].\n\n**Implications and Future Directions**\n\nThe conclusion of the paper implies that AI has the potential to augment mental health support and suicide prevention efforts, but it must be implemented in a responsible and ethical manner. The paper does not provide specific recommendations for future research or implementation, but it sets the stage for further exploration of the role of AI in mental health.\n\n**Confidence Assessment**\n\nBased on the provided information, I am confident that the paper concludes that AI can play a valuable role in improving mental health support and suicide prevention efforts when implemented properly. However, I am uncertain about the specific recommendations and future directions outlined in the paper, as this information is not provided in the summarized context.",
+      "confidence": "high",
+      "metrics": {
+        "retrieval": {
+          "precision_at_k": {
+            "score": 0.333,
+            "relevant_in_top_k": 1,
+            "k": 3,
+            "explanation": "1/3 retrieved chunks are relevant."
+          },
+          "recall_at_k": {
+            "score": 1.0,
+            "relevant_found": 1,
+            "total_relevant": 1,
+            "explanation": "1/1 relevant items found in top-3."
+          },
+          "f1_at_k": {
+            "score": 0.5,
+            "precision": 0.333,
+            "recall": 1.0,
+            "explanation": "F1 = 0.500 (P=0.333, R=1.000)"
+          },
+          "mrr": {
+            "score": 1.0,
+            "first_relevant_rank": 1,
+            "explanation": "First relevant result at rank 1. MRR = 1/1 = 1.000"
+          },
+          "map": {
+            "score": 1.0,
+            "relevant_positions": 1,
+            "explanation": "Average Precision across 1 relevant positions = 1.000"
+          },
+          "ndcg_at_k": {
+            "score": 1.0,
+            "dcg": 1.0,
+            "idcg": 1.0,
+            "explanation": "NDCG@3 = 1.000 (DCG=1.000, IDCG=1.000)"
+          },
+          "hit_rate_at_k": {
+            "score": 1.0,
+            "explanation": "At least one relevant result in top-3."
+          }
+        },
+        "generation": {
+          "semantic_similarity": {
+            "score": 0.694,
+            "explanation": "Cosine similarity between answer and ground truth embeddings = 0.694"
+          },
+          "bleu_score": {
+            "score": 0.07,
+            "bleu_1": 0.127,
+            "bleu_2": 0.099,
+            "bleu_4": 0.07,
+            "explanation": "BLEU-4=0.070 (BLEU-1=0.127, BLEU-2=0.099)"
+          },
+          "rouge_l_score": {
+            "score": 0.179,
+            "precision": 0.11,
+            "recall": 0.482,
+            "lcs_length": 27,
+            "explanation": "ROUGE-L F1=0.179 (P=0.110, R=0.482, LCS=27 tokens)"
+          },
+          "faithfulness": {
+            "score": 0.8,
+            "explanation": "The answer is mostly faithful to the provided context, accurately summarizing the conclusion and key findings of the paper. However, it slightly overextends by implying specific recommendations and future directions not explicitly mentioned in the context, and also by stating that the paper 'sets the stage for further exploration' which is not present in the context."
+          },
+          "answer_completeness": {
+            "score": 0.8,
+            "explanation": "The generated answer covers the main conclusion of the paper, highlights the importance of human oversight and responsible AI implementation, and mentions the potential for AI to augment mental health support. However, it does not explicitly mention the use of AI and NLP for detecting suicide risk and analyzing textual signals from digital communication platforms, which are key points in the expected answer."
+          }
+        },
+        "system": {
+          "latency": {
+            "total_seconds": 4.892,
+            "breakdown": {
+              "planning": 0.0,
+              "retrieval": 0.028,
+              "summarization": 0,
+              "explanation": 4.864
+            },
+            "explanation": "Total pipeline time: 4.892s"
+          }
+        },
+        "overall_score": 0.698
+      },
+      "timing": {
+        "planning": 0.0,
+        "retrieval": 0.028,
+        "summarization": 0,
+        "explanation": 4.864
+      }
+    }
+  ],
+  "aggregate": {
+    "retrieval/precision_at_k": {
+      "mean": 0.487,
+      "min": 0.333,
+      "max": 0.6,
+      "count": 10
+    },
+    "retrieval/recall_at_k": {
+      "mean": 0.95,
+      "min": 0.5,
+      "max": 1.0,
+      "count": 10
+    },
+    "retrieval/f1_at_k": {
+      "mean": 0.636,
+      "min": 0.4,
+      "max": 0.75,
+      "count": 10
+    },
+    "retrieval/mrr": {
+      "mean": 0.933,
+      "min": 0.333,
+      "max": 1.0,
+      "count": 10
+    },
+    "retrieval/map": {
+      "mean": 0.794,
+      "min": 0.333,
+      "max": 1.0,
+      "count": 10
+    },
+    "retrieval/ndcg_at_k": {
+      "mean": 0.885,
+      "min": 0.5,
+      "max": 1.0,
+      "count": 10
+    },
+    "retrieval/hit_rate_at_k": {
+      "mean": 1.0,
+      "min": 1.0,
+      "max": 1.0,
+      "count": 10
+    },
+    "generation/semantic_similarity": {
+      "mean": 0.734,
+      "min": 0.478,
+      "max": 0.871,
+      "count": 10
+    },
+    "generation/bleu_score": {
+      "mean": 0.026,
+      "min": 0.002,
+      "max": 0.07,
+      "count": 10
+    },
+    "generation/rouge_l_score": {
+      "mean": 0.086,
+      "min": 0.059,
+      "max": 0.179,
+      "count": 10
+    },
+    "generation/faithfulness": {
+      "mean": 0.855,
+      "min": 0.8,
+      "max": 0.95,
+      "count": 10
+    },
+    "generation/answer_completeness": {
+      "mean": 0.865,
+      "min": 0.8,
+      "max": 1.0,
+      "count": 10
+    },
+    "overall_mean": 0.688
+  },
+  "dataset_size": 10
+}

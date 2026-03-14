@@ -263,28 +263,49 @@ def cmd_stats(args):
 
 
 def cmd_evaluate(args):
-    """Run evaluation metrics."""
-    print("Running evaluation... (requires ingested papers and a query)")
-    from evaluation.rag_metrics import RAGMetrics
+    """Run evaluation metrics (13 metrics across 3 categories)."""
+    from evaluation.evaluation_runner import EvaluationRunner
+
     pipeline = build_query_pipeline()
-    metrics = RAGMetrics(llm_client=pipeline.get("llm_client"))
-
-    test_query = args.query or "What methodology is used?"
-    result = pipeline["router"].route(test_query)
-
-    eval_result = metrics.evaluate(
-        query=test_query,
-        answer=result["answer"],
-        context=result.get("retrieval", {}).get("context", ""),
-        timing=result.get("timing")
+    runner = EvaluationRunner(
+        router=pipeline["router"],
+        embedder=pipeline.get("embedder"),
+        llm_client=pipeline.get("llm_client")
     )
 
-    print(f"\n📊 Evaluation Results for: '{test_query}'")
-    for key, value in eval_result.items():
-        if isinstance(value, dict) and "score" in value:
-            print(f"  {key}: {value['score']:.3f} — {value.get('explanation', '')}")
-        elif key == "overall_score":
-            print(f"  Overall: {value:.3f}")
+    if args.all:
+        # Run full test dataset evaluation
+        results = runner.run_all()
+    elif args.query:
+        # Run single query evaluation
+        result = runner.run_single(
+            query=args.query,
+            ground_truth=""  # No ground truth for ad-hoc queries
+        )
+
+        # Print detailed single-query results
+        print(f"\n{'=' * 70}")
+        print(f"  [*] Evaluation for: '{args.query}'")
+        print(f"{'=' * 70}")
+
+        metrics = result["metrics"]
+        for category in ["retrieval", "generation"]:
+            if metrics.get(category):
+                print(f"\n  -- {category.title()} --")
+                for name, data in metrics[category].items():
+                    if isinstance(data, dict) and "score" in data:
+                        print(f"    {name:20s}  {data['score']:.3f}  {data.get('explanation', '')}")
+
+        print(f"\n  Overall: {metrics.get('overall_score', 0):.3f}")
+
+        results = {"per_query": [result], "aggregate": {}, "dataset_size": 1}
+    else:
+        # Default: run full dataset
+        results = runner.run_all()
+
+    # Save results if requested
+    if args.save:
+        runner.save_results(results)
 
 
 def main():
@@ -308,7 +329,12 @@ def main():
 
     # Evaluate command
     eval_parser = subparsers.add_parser("evaluate", help="Run evaluation metrics")
-    eval_parser.add_argument("--query", type=str, default=None)
+    eval_parser.add_argument("--query", type=str, default=None,
+                             help="Single query to evaluate")
+    eval_parser.add_argument("--all", action="store_true",
+                             help="Run full test dataset evaluation")
+    eval_parser.add_argument("--save", action="store_true",
+                             help="Save results to data/evaluation_results.json")
 
     # Security command
     subparsers.add_parser("security", help="Run security tests")

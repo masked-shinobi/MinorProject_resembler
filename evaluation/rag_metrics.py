@@ -1,135 +1,420 @@
 """
 RAG Metrics Module
-Evaluates RAG system performance: Precision, Recall, Faithfulness, and Latency.
-Implements custom evaluation functions simulating RAGAS-like metrics.
+Comprehensive evaluation of RAG system performance.
+
+Three metric categories:
+1. Retrieval Quality: Precision@K, Recall@K, F1@K, MRR, MAP, NDCG@K, Hit Rate
+2. Generation Quality: Semantic Similarity, BLEU, ROUGE-L, Faithfulness, Completeness
+3. System Performance: Latency breakdown
 """
 
-from typing import List, Dict, Any, Optional
-import time
 import re
+import math
+import numpy as np
+from typing import List, Dict, Any, Optional, Set
 
 
-class RAGMetrics:
+# ═══════════════════════════════════════════════════════════════════════════════
+# RETRIEVAL QUALITY METRICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class RetrievalMetrics:
     """
-    Evaluates the quality of RAG system outputs.
-
-    Metrics:
-    - Context Precision: Are the retrieved chunks relevant to the query?
-    - Context Recall: Did we retrieve all relevant information?
-    - Faithfulness: Is the answer grounded in the retrieved context?
-    - Answer Relevancy: Does the answer address the user's query?
-    - Latency: How fast is the pipeline?
+    Evaluates retrieval quality by comparing retrieved chunks against
+    ground-truth relevant sections/keywords.
     """
 
-    def __init__(self, llm_client=None):
+    def evaluate_all(
+        self,
+        retrieved_sections: List[str],
+        retrieved_chunk_ids: List[str],
+        relevant_sections: List[str],
+        relevant_keywords: List[str],
+        retrieved_contents: List[str],
+        k: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Run all retrieval metrics.
+
+        Args:
+            retrieved_sections: Section headings of retrieved chunks (ordered by rank).
+            retrieved_chunk_ids: IDs of retrieved chunks.
+            relevant_sections: Ground-truth relevant section headings.
+            relevant_keywords: Ground-truth relevant keywords.
+            retrieved_contents: Text content of retrieved chunks.
+            k: Number of top results to evaluate.
+
+        Returns:
+            Dict with all retrieval metric scores.
+        """
+        # Build relevance labels: 1 if chunk's section matches any relevant section
+        relevance = self._build_relevance_labels(
+            retrieved_sections, retrieved_contents,
+            relevant_sections, relevant_keywords
+        )
+
+        results = {}
+        results["precision_at_k"] = self.precision_at_k(relevance, k)
+        results["recall_at_k"] = self.recall_at_k(relevance, k, len(relevant_sections))
+        results["f1_at_k"] = self.f1_at_k(results["precision_at_k"], results["recall_at_k"])
+        results["mrr"] = self.mrr(relevance)
+        results["map"] = self.average_precision(relevance)
+        results["ndcg_at_k"] = self.ndcg_at_k(relevance, k)
+        results["hit_rate_at_k"] = self.hit_rate_at_k(relevance, k)
+
+        return results
+
+    def _build_relevance_labels(
+        self,
+        retrieved_sections: List[str],
+        retrieved_contents: List[str],
+        relevant_sections: List[str],
+        relevant_keywords: List[str]
+    ) -> List[int]:
+        """
+        Determine which retrieved chunks are relevant.
+        A chunk is relevant if its section heading matches a relevant section
+        OR if it contains relevant keywords.
+        """
+        relevant_set = {s.lower().strip() for s in relevant_sections}
+        keyword_set = {kw.lower().strip() for kw in relevant_keywords}
+
+        labels = []
+        for i, section in enumerate(retrieved_sections):
+            section_lower = section.lower().strip()
+            content_lower = retrieved_contents[i].lower() if i < len(retrieved_contents) else ""
+
+            # Check section heading match (substring match for flexibility)
+            section_match = any(
+                rel in section_lower or section_lower in rel
+                for rel in relevant_set
+            )
+
+            # Check keyword presence in content
+            keyword_matches = sum(1 for kw in keyword_set if kw in content_lower)
+            keyword_match = keyword_matches >= 2  # At least 2 keywords present
+
+            labels.append(1 if (section_match or keyword_match) else 0)
+
+        return labels
+
+    def precision_at_k(self, relevance: List[int], k: int) -> Dict[str, Any]:
+        """
+        Precision@K = (relevant items in top-K) / K
+        """
+        top_k = relevance[:k]
+        if not top_k:
+            return {"score": 0.0, "explanation": "No results to evaluate."}
+
+        relevant_count = sum(top_k)
+        score = relevant_count / len(top_k)
+
+        return {
+            "score": round(score, 3),
+            "relevant_in_top_k": relevant_count,
+            "k": len(top_k),
+            "explanation": f"{relevant_count}/{len(top_k)} retrieved chunks are relevant."
+        }
+
+    def recall_at_k(self, relevance: List[int], k: int, total_relevant: int) -> Dict[str, Any]:
+        """
+        Recall@K = (relevant items in top-K) / (total relevant items)
+        """
+        top_k = relevance[:k]
+        if total_relevant == 0:
+            return {"score": 0.0, "explanation": "No relevant items defined."}
+
+        relevant_count = sum(top_k)
+        score = relevant_count / total_relevant
+
+        return {
+            "score": round(min(score, 1.0), 3),
+            "relevant_found": relevant_count,
+            "total_relevant": total_relevant,
+            "explanation": f"{relevant_count}/{total_relevant} relevant items found in top-{len(top_k)}."
+        }
+
+    def f1_at_k(self, precision: Dict, recall: Dict) -> Dict[str, Any]:
+        """
+        F1@K = 2 × (Precision × Recall) / (Precision + Recall)
+        """
+        p = precision["score"]
+        r = recall["score"]
+
+        if p + r == 0:
+            score = 0.0
+        else:
+            score = 2 * (p * r) / (p + r)
+
+        return {
+            "score": round(score, 3),
+            "precision": p,
+            "recall": r,
+            "explanation": f"F1 = {score:.3f} (P={p:.3f}, R={r:.3f})"
+        }
+
+    def mrr(self, relevance: List[int]) -> Dict[str, Any]:
+        """
+        Mean Reciprocal Rank = 1 / (rank of first relevant result)
+        """
+        for i, rel in enumerate(relevance):
+            if rel == 1:
+                rank = i + 1
+                score = 1.0 / rank
+                return {
+                    "score": round(score, 3),
+                    "first_relevant_rank": rank,
+                    "explanation": f"First relevant result at rank {rank}. MRR = 1/{rank} = {score:.3f}"
+                }
+
+        return {
+            "score": 0.0,
+            "first_relevant_rank": None,
+            "explanation": "No relevant results found."
+        }
+
+    def average_precision(self, relevance: List[int]) -> Dict[str, Any]:
+        """
+        Average Precision (AP) = mean of precision values at each relevant position.
+        MAP is the mean of AP across multiple queries (computed in EvaluationRunner).
+        """
+        if not relevance or sum(relevance) == 0:
+            return {"score": 0.0, "explanation": "No relevant results found."}
+
+        precision_sum = 0.0
+        relevant_count = 0
+
+        for i, rel in enumerate(relevance):
+            if rel == 1:
+                relevant_count += 1
+                precision_at_i = relevant_count / (i + 1)
+                precision_sum += precision_at_i
+
+        score = precision_sum / relevant_count if relevant_count > 0 else 0.0
+
+        return {
+            "score": round(score, 3),
+            "relevant_positions": relevant_count,
+            "explanation": f"Average Precision across {relevant_count} relevant positions = {score:.3f}"
+        }
+
+    def ndcg_at_k(self, relevance: List[int], k: int) -> Dict[str, Any]:
+        """
+        Normalized Discounted Cumulative Gain@K.
+        NDCG = DCG / Ideal DCG
+        DCG = sum(relevance[i] / log2(i+2)) for i in [0, k)
+        """
+        top_k = relevance[:k]
+        if not top_k:
+            return {"score": 0.0, "explanation": "No results to evaluate."}
+
+        # DCG
+        dcg = sum(rel / math.log2(i + 2) for i, rel in enumerate(top_k))
+
+        # Ideal DCG (all relevant first)
+        ideal = sorted(top_k, reverse=True)
+        idcg = sum(rel / math.log2(i + 2) for i, rel in enumerate(ideal))
+
+        score = dcg / idcg if idcg > 0 else 0.0
+
+        return {
+            "score": round(score, 3),
+            "dcg": round(dcg, 3),
+            "idcg": round(idcg, 3),
+            "explanation": f"NDCG@{len(top_k)} = {score:.3f} (DCG={dcg:.3f}, IDCG={idcg:.3f})"
+        }
+
+    def hit_rate_at_k(self, relevance: List[int], k: int) -> Dict[str, Any]:
+        """
+        Hit Rate@K = 1 if any relevant result in top-K, else 0.
+        """
+        top_k = relevance[:k]
+        hit = 1 if any(r == 1 for r in top_k) else 0
+
+        return {
+            "score": float(hit),
+            "explanation": f"{'At least one' if hit else 'No'} relevant result in top-{len(top_k)}."
+        }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# GENERATION QUALITY METRICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class GenerationMetrics:
+    """
+    Evaluates the quality of generated answers against ground truth
+    and retrieved context.
+    """
+
+    def __init__(self, llm_client=None, embedder=None):
         """
         Args:
-            llm_client: Optional LLM client for LLM-based evaluation.
+            llm_client: Optional LLM client for LLM-based metrics.
+            embedder: Optional Embedder instance for semantic similarity.
         """
         self.llm_client = llm_client
+        self.embedder = embedder
 
-    def evaluate(
+    def evaluate_all(
         self,
         query: str,
         answer: str,
-        context: str,
-        ground_truth: Optional[str] = None,
-        timing: Optional[Dict[str, float]] = None
+        ground_truth: str,
+        context: str
     ) -> Dict[str, Any]:
         """
-        Run all evaluation metrics.
+        Run all generation quality metrics.
 
         Args:
             query: The user's question.
             answer: The system-generated answer.
+            ground_truth: The expected correct answer.
             context: The retrieved context used to generate the answer.
-            ground_truth: Optional ground truth answer for precision/recall.
-            timing: Optional timing dict from the router.
 
         Returns:
-            Dict with metric scores (0.0 to 1.0) and explanations.
+            Dict with all generation metric scores.
         """
         results = {}
 
-        # Context Precision
-        results["context_precision"] = self.context_precision(query, context)
-
-        # Faithfulness
+        results["semantic_similarity"] = self.semantic_similarity(answer, ground_truth)
+        results["bleu_score"] = self.bleu_score(answer, ground_truth)
+        results["rouge_l_score"] = self.rouge_l_score(answer, ground_truth)
         results["faithfulness"] = self.faithfulness(answer, context)
-
-        # Answer Relevancy
-        results["answer_relevancy"] = self.answer_relevancy(query, answer)
-
-        # Context Recall (only if ground truth provided)
-        if ground_truth:
-            results["context_recall"] = self.context_recall(
-                ground_truth, context
-            )
-
-        # Latency
-        if timing:
-            results["latency"] = {
-                "total_seconds": sum(timing.values()),
-                "breakdown": timing
-            }
-
-        # Overall score (average of available scores)
-        scores = [
-            v["score"] for v in results.values()
-            if isinstance(v, dict) and "score" in v
-        ]
-        results["overall_score"] = round(sum(scores) / len(scores), 3) if scores else 0.0
+        results["answer_completeness"] = self.answer_completeness(answer, ground_truth, query)
 
         return results
 
-    def context_precision(self, query: str, context: str) -> Dict[str, Any]:
+    def semantic_similarity(self, answer: str, ground_truth: str) -> Dict[str, Any]:
         """
-        Measure how relevant the retrieved context is to the query.
-        Uses keyword overlap as a proxy metric.
+        Cosine similarity between answer and ground truth embeddings.
+        Uses the existing Embedder (sentence-transformers).
         """
-        query_keywords = set(self._extract_keywords(query))
-        context_keywords = set(self._extract_keywords(context))
+        if not self.embedder:
+            return {"score": 0.0, "explanation": "No embedder available for semantic similarity."}
 
-        if not query_keywords:
-            return {"score": 0.0, "explanation": "No keywords in query."}
+        if not answer.strip() or not ground_truth.strip():
+            return {"score": 0.0, "explanation": "Empty answer or ground truth."}
 
-        overlap = query_keywords.intersection(context_keywords)
-        score = len(overlap) / len(query_keywords)
+        try:
+            answer_emb = self.embedder.embed_text(answer)
+            truth_emb = self.embedder.embed_text(ground_truth)
+
+            # Cosine similarity
+            dot = np.dot(answer_emb, truth_emb)
+            norm_a = np.linalg.norm(answer_emb)
+            norm_t = np.linalg.norm(truth_emb)
+            score = float(dot / (norm_a * norm_t)) if (norm_a * norm_t) > 0 else 0.0
+
+            # Clamp to [0, 1]
+            score = max(0.0, min(1.0, score))
+
+            return {
+                "score": round(score, 3),
+                "explanation": f"Cosine similarity between answer and ground truth embeddings = {score:.3f}"
+            }
+        except Exception as e:
+            return {"score": 0.0, "explanation": f"Error computing semantic similarity: {e}"}
+
+    def bleu_score(self, answer: str, ground_truth: str) -> Dict[str, Any]:
+        """
+        BLEU score (1-4 gram) using nltk.
+        Measures n-gram precision of the answer vs ground truth.
+        """
+        if not answer.strip() or not ground_truth.strip():
+            return {"score": 0.0, "explanation": "Empty answer or ground truth."}
+
+        try:
+            from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+
+            reference = [ground_truth.lower().split()]
+            hypothesis = answer.lower().split()
+
+            # Use smoothing to avoid 0 scores for short texts
+            smoothing = SmoothingFunction().method1
+
+            # Individual n-gram scores
+            bleu_1 = sentence_bleu(reference, hypothesis, weights=(1, 0, 0, 0), smoothing_function=smoothing)
+            bleu_2 = sentence_bleu(reference, hypothesis, weights=(0.5, 0.5, 0, 0), smoothing_function=smoothing)
+            bleu_4 = sentence_bleu(reference, hypothesis, weights=(0.25, 0.25, 0.25, 0.25), smoothing_function=smoothing)
+
+            return {
+                "score": round(bleu_4, 3),
+                "bleu_1": round(bleu_1, 3),
+                "bleu_2": round(bleu_2, 3),
+                "bleu_4": round(bleu_4, 3),
+                "explanation": f"BLEU-4={bleu_4:.3f} (BLEU-1={bleu_1:.3f}, BLEU-2={bleu_2:.3f})"
+            }
+        except ImportError:
+            return {"score": 0.0, "explanation": "nltk not available for BLEU calculation."}
+        except Exception as e:
+            return {"score": 0.0, "explanation": f"Error computing BLEU: {e}"}
+
+    def rouge_l_score(self, answer: str, ground_truth: str) -> Dict[str, Any]:
+        """
+        ROUGE-L score based on Longest Common Subsequence (LCS).
+        No external dependencies — custom implementation.
+
+        ROUGE-L Precision = LCS / len(answer)
+        ROUGE-L Recall    = LCS / len(ground_truth)
+        ROUGE-L F1        = 2 × P × R / (P + R)
+        """
+        if not answer.strip() or not ground_truth.strip():
+            return {"score": 0.0, "explanation": "Empty answer or ground truth."}
+
+        answer_tokens = answer.lower().split()
+        truth_tokens = ground_truth.lower().split()
+
+        lcs_length = self._lcs_length(answer_tokens, truth_tokens)
+
+        precision = lcs_length / len(answer_tokens) if answer_tokens else 0.0
+        recall = lcs_length / len(truth_tokens) if truth_tokens else 0.0
+
+        if precision + recall == 0:
+            f1 = 0.0
+        else:
+            f1 = 2 * precision * recall / (precision + recall)
 
         return {
-            "score": round(min(score, 1.0), 3),
-            "matched_keywords": list(overlap),
-            "explanation": f"{len(overlap)}/{len(query_keywords)} query keywords found in context."
+            "score": round(f1, 3),
+            "precision": round(precision, 3),
+            "recall": round(recall, 3),
+            "lcs_length": lcs_length,
+            "explanation": f"ROUGE-L F1={f1:.3f} (P={precision:.3f}, R={recall:.3f}, LCS={lcs_length} tokens)"
         }
 
-    def context_recall(self, ground_truth: str, context: str) -> Dict[str, Any]:
-        """
-        Measure how much of the ground truth is covered by the retrieved context.
-        """
-        truth_keywords = set(self._extract_keywords(ground_truth))
-        context_keywords = set(self._extract_keywords(context))
+    def _lcs_length(self, x: List[str], y: List[str]) -> int:
+        """Compute length of Longest Common Subsequence using dynamic programming."""
+        m, n = len(x), len(y)
+        # Space-optimized: only need two rows
+        prev = [0] * (n + 1)
+        curr = [0] * (n + 1)
 
-        if not truth_keywords:
-            return {"score": 0.0, "explanation": "No keywords in ground truth."}
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if x[i - 1] == y[j - 1]:
+                    curr[j] = prev[j - 1] + 1
+                else:
+                    curr[j] = max(prev[j], curr[j - 1])
+            prev, curr = curr, [0] * (n + 1)
 
-        overlap = truth_keywords.intersection(context_keywords)
-        score = len(overlap) / len(truth_keywords)
-
-        return {
-            "score": round(min(score, 1.0), 3),
-            "matched_keywords": list(overlap),
-            "explanation": f"{len(overlap)}/{len(truth_keywords)} ground truth keywords found in context."
-        }
+        return prev[n]
 
     def faithfulness(self, answer: str, context: str) -> Dict[str, Any]:
         """
-        Measure whether the answer is grounded in (faithful to) the context.
-        Checks if key claims in the answer can be traced to the context.
+        Measure whether the answer is grounded in the retrieved context.
+        Uses LLM if available; falls back to heuristic keyword overlap.
         """
+        if not answer.strip() or not context.strip():
+            return {"score": 0.0, "explanation": "Empty answer or context."}
+
         if self.llm_client:
             return self._llm_faithfulness(answer, context)
 
-        # Heuristic: check sentence overlap
+        return self._heuristic_faithfulness(answer, context)
+
+    def _heuristic_faithfulness(self, answer: str, context: str) -> Dict[str, Any]:
+        """Heuristic faithfulness: check sentence-level keyword grounding."""
         answer_sentences = self._split_sentences(answer)
         context_lower = context.lower()
 
@@ -137,10 +422,11 @@ class RAGMetrics:
         total = len(answer_sentences)
 
         for sent in answer_sentences:
-            # Check if key phrases from the sentence appear in context
-            key_phrases = self._extract_keywords(sent)
-            match_count = sum(1 for kp in key_phrases if kp in context_lower)
-            if key_phrases and match_count / len(key_phrases) > 0.3:
+            keywords = self._extract_keywords(sent)
+            if not keywords:
+                continue
+            match_count = sum(1 for kw in keywords if kw in context_lower)
+            if match_count / len(keywords) > 0.3:
                 grounded_count += 1
 
         score = grounded_count / total if total > 0 else 0.0
@@ -152,46 +438,81 @@ class RAGMetrics:
             "explanation": f"{grounded_count}/{total} answer sentences are grounded in context."
         }
 
-    def answer_relevancy(self, query: str, answer: str) -> Dict[str, Any]:
-        """
-        Measure whether the answer is relevant to the query.
-        """
-        query_keywords = set(self._extract_keywords(query))
-        answer_keywords = set(self._extract_keywords(answer))
-
-        if not query_keywords:
-            return {"score": 0.0, "explanation": "No keywords in query."}
-
-        overlap = query_keywords.intersection(answer_keywords)
-        score = len(overlap) / len(query_keywords)
-
-        return {
-            "score": round(min(score, 1.0), 3),
-            "matched_keywords": list(overlap),
-            "explanation": f"{len(overlap)}/{len(query_keywords)} query keywords addressed in answer."
-        }
-
     def _llm_faithfulness(self, answer: str, context: str) -> Dict[str, Any]:
-        """LLM-based faithfulness check."""
+        """LLM-based faithfulness evaluation."""
         prompt = (
-            "Given the following context and answer, evaluate the faithfulness "
-            "of the answer. Score from 0.0 (hallucinated) to 1.0 (fully grounded).\n\n"
-            f"Context:\n{context[:2000]}\n\n"
+            "You are evaluating whether an AI-generated answer is faithful to the provided context.\n"
+            "A faithful answer only contains claims that can be verified from the context.\n\n"
+            f"Context:\n{context[:3000]}\n\n"
             f"Answer:\n{answer}\n\n"
+            "Score the faithfulness from 0.0 (completely hallucinated) to 1.0 (fully grounded).\n"
             "Respond with ONLY a JSON object: {\"score\": <float>, \"explanation\": \"<text>\"}"
         )
 
         try:
-            response = self.llm_client.generate(prompt, max_tokens=200, temperature=0.1)
             import json
+            response = self.llm_client.generate(prompt, max_tokens=200, temperature=0.1)
             result = json.loads(response)
             return {
                 "score": round(float(result.get("score", 0)), 3),
                 "explanation": result.get("explanation", "LLM evaluation.")
             }
-        except Exception:
-            # Fall back to heuristic
-            return self.faithfulness.__wrapped__(self, answer, context) if hasattr(self.faithfulness, '__wrapped__') else {"score": 0.5, "explanation": "LLM evaluation failed, defaulting."}
+        except Exception as e:
+            # Fallback to heuristic
+            return self._heuristic_faithfulness(answer, context)
+
+    def answer_completeness(self, answer: str, ground_truth: str, query: str) -> Dict[str, Any]:
+        """
+        Evaluate whether the answer covers all key points from the ground truth.
+        Uses LLM if available; falls back to keyword coverage.
+        """
+        if not answer.strip() or not ground_truth.strip():
+            return {"score": 0.0, "explanation": "Empty answer or ground truth."}
+
+        if self.llm_client:
+            return self._llm_completeness(answer, ground_truth, query)
+
+        return self._heuristic_completeness(answer, ground_truth)
+
+    def _heuristic_completeness(self, answer: str, ground_truth: str) -> Dict[str, Any]:
+        """Heuristic completeness: keyword coverage of ground truth."""
+        truth_keywords = set(self._extract_keywords(ground_truth))
+        answer_keywords = set(self._extract_keywords(answer))
+
+        if not truth_keywords:
+            return {"score": 0.0, "explanation": "No keywords in ground truth."}
+
+        covered = truth_keywords.intersection(answer_keywords)
+        score = len(covered) / len(truth_keywords)
+
+        return {
+            "score": round(min(score, 1.0), 3),
+            "covered_keywords": len(covered),
+            "total_keywords": len(truth_keywords),
+            "explanation": f"{len(covered)}/{len(truth_keywords)} ground truth keywords covered in answer."
+        }
+
+    def _llm_completeness(self, answer: str, ground_truth: str, query: str) -> Dict[str, Any]:
+        """LLM-based answer completeness evaluation."""
+        prompt = (
+            "You are evaluating whether an AI-generated answer completely covers the expected answer.\n\n"
+            f"Question: {query}\n\n"
+            f"Expected Answer:\n{ground_truth}\n\n"
+            f"Generated Answer:\n{answer}\n\n"
+            "Score the completeness from 0.0 (misses everything) to 1.0 (covers all key points).\n"
+            "Respond with ONLY a JSON object: {\"score\": <float>, \"explanation\": \"<text>\"}"
+        )
+
+        try:
+            import json
+            response = self.llm_client.generate(prompt, max_tokens=200, temperature=0.1)
+            result = json.loads(response)
+            return {
+                "score": round(float(result.get("score", 0)), 3),
+                "explanation": result.get("explanation", "LLM evaluation.")
+            }
+        except Exception as e:
+            return self._heuristic_completeness(answer, ground_truth)
 
     def _extract_keywords(self, text: str) -> List[str]:
         """Extract meaningful keywords from text."""
@@ -200,7 +521,9 @@ class RAGMetrics:
             "being", "have", "has", "had", "do", "does", "did", "will",
             "would", "could", "should", "may", "might", "can", "and",
             "or", "but", "in", "on", "at", "to", "for", "of", "with",
-            "by", "from", "as", "it", "its", "this", "that", "not"
+            "by", "from", "as", "it", "its", "this", "that", "not",
+            "such", "these", "those", "which", "who", "how", "what",
+            "when", "where", "than", "also", "each", "more", "other",
         }
         words = re.findall(r'\b[a-z]{3,}\b', text.lower())
         return [w for w in words if w not in stopwords]
@@ -209,3 +532,103 @@ class RAGMetrics:
         """Split text into sentences."""
         sentences = re.split(r'(?<=[.!?])\s+', text)
         return [s.strip() for s in sentences if s.strip() and len(s.strip()) > 10]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ORCHESTRATOR
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class RAGMetrics:
+    """
+    Orchestrates all evaluation metrics: Retrieval + Generation + Latency.
+    """
+
+    def __init__(self, llm_client=None, embedder=None):
+        """
+        Args:
+            llm_client: Optional LLM client for LLM-based evaluation.
+            embedder: Optional Embedder instance for semantic similarity.
+        """
+        self.retrieval_metrics = RetrievalMetrics()
+        self.generation_metrics = GenerationMetrics(llm_client=llm_client, embedder=embedder)
+
+    def evaluate(
+        self,
+        query: str,
+        answer: str,
+        context: str,
+        ground_truth: str = "",
+        relevant_sections: List[str] = None,
+        relevant_keywords: List[str] = None,
+        retrieved_sections: List[str] = None,
+        retrieved_chunk_ids: List[str] = None,
+        retrieved_contents: List[str] = None,
+        timing: Optional[Dict[str, float]] = None,
+        k: int = 5
+    ) -> Dict[str, Any]:
+        """
+        Run all evaluation metrics.
+
+        Args:
+            query: The user's question.
+            answer: The system-generated answer.
+            context: The retrieved context used to generate the answer.
+            ground_truth: Expected correct answer.
+            relevant_sections: Ground-truth relevant section headings.
+            relevant_keywords: Ground-truth relevant keywords.
+            retrieved_sections: Section headings of retrieved chunks (ordered).
+            retrieved_chunk_ids: IDs of retrieved chunks.
+            retrieved_contents: Text content of retrieved chunks.
+            timing: Pipeline timing dict.
+            k: Top-K for retrieval metrics.
+
+        Returns:
+            Dict with all metric scores organized by category.
+        """
+        results = {"retrieval": {}, "generation": {}, "system": {}}
+
+        # ── Retrieval Metrics ──
+        if (retrieved_sections and relevant_sections):
+            results["retrieval"] = self.retrieval_metrics.evaluate_all(
+                retrieved_sections=retrieved_sections or [],
+                retrieved_chunk_ids=retrieved_chunk_ids or [],
+                relevant_sections=relevant_sections or [],
+                relevant_keywords=relevant_keywords or [],
+                retrieved_contents=retrieved_contents or [],
+                k=k
+            )
+
+        # ── Generation Metrics ──
+        if ground_truth:
+            results["generation"] = self.generation_metrics.evaluate_all(
+                query=query,
+                answer=answer,
+                ground_truth=ground_truth,
+                context=context
+            )
+        else:
+            # Without ground truth, only faithfulness is available
+            results["generation"]["faithfulness"] = self.generation_metrics.faithfulness(
+                answer, context
+            )
+
+        # ── System Metrics ──
+        if timing:
+            results["system"]["latency"] = {
+                "total_seconds": round(sum(timing.values()), 3),
+                "breakdown": timing,
+                "explanation": f"Total pipeline time: {sum(timing.values()):.3f}s"
+            }
+
+        # ── Overall Scores ──
+        all_scores = []
+        for category in ["retrieval", "generation"]:
+            for metric_name, metric_data in results.get(category, {}).items():
+                if isinstance(metric_data, dict) and "score" in metric_data:
+                    all_scores.append(metric_data["score"])
+
+        results["overall_score"] = round(
+            sum(all_scores) / len(all_scores), 3
+        ) if all_scores else 0.0
+
+        return results
